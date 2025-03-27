@@ -46,15 +46,14 @@ const splitter = new RecursiveCharacterTextSplitter({
 
 const createCollection = async (similarityMetric: SimilarityMetric = "dot_product") => {
   try {
-    // Ensure ASTRA_DB_COLLECTION is defined
+  
     if (!ASTRA_DB_COLLECTION) {
       throw new Error("ASTRA_DB_COLLECTION is undefined. Please provide a valid collection name.");
     }
-
-    // Fetch the list of existing collections
+   
     const collections = await db.listCollections();
 
-    // Check if the collection exists by comparing collection names
+   
     const collectionExists = collections.some(
       (col: { name: string }) => col.name === ASTRA_DB_COLLECTION
     );
@@ -64,7 +63,7 @@ const createCollection = async (similarityMetric: SimilarityMetric = "dot_produc
       return;
     }
 
-    // Create the collection if it doesn't exist
+    
     const res = await db.createCollection(ASTRA_DB_COLLECTION, {
       vector: {
         dimension: 1536,
@@ -128,8 +127,8 @@ createCollection().then(() => loadSampleData()).then(() => {
   console.error(error);
 });
 // Middleware
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 // Routes
 app.use(cors())
