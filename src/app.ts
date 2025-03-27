@@ -21,7 +21,7 @@ const {
   OPENAI_API_KEY
 } = process.env
 
-const openai = new OpenAI({apiKey: OPENAI_API_KEY})
+const openai = new OpenAI({apiKey: "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"})
 
 const sctc_url = [
   "https://southernconvergence.com/",
@@ -95,7 +95,7 @@ const loadSampleData = async () => {
         $vector: vector,
         text: chunk
       })
-      console.log(res)
+      return res
     }
   }
 }
@@ -216,7 +216,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 
     
 });
