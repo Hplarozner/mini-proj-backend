@@ -135,6 +135,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cors())
 app.use('/', roleRoute);
 
+
 app.post('/chat', async (req, res) => {
   const {messages} = req.body
   try {
@@ -147,8 +148,6 @@ app.post('/chat', async (req, res) => {
       input: latestMessage,
       encoding_format: "float"
     })
-
-    console.log(embedding)
 
     try {
       const collection = db.collection(ASTRA_DB_COLLECTION as string)
