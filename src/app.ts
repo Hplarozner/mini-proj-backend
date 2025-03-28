@@ -103,7 +103,13 @@ const loadSampleData = async () => {
 const scrapePage = async (url: string) => {
   const loader = new PuppeteerWebBaseLoader(url, {
     launchOptions: {
-      headless: true
+      headless: true,
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+      ],
     },
     gotoOptions: {
       waitUntil: "domcontentloaded"
