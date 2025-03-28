@@ -1,11 +1,17 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "copy-files": "copyfiles -u 1 ./src/**/*.json  ./dist",
+    "clean": "rimraf ./dist",
+    "dev-build": "concurrently \"npm run build:watch\" \"npm run dev\"",
+    "start": "node --require dotenv/config --experimental-modules ./dist/app.js",
     "seed": "ts-node ./src/app.ts",
-    "dev": "nodemon --watch ./src --ext ts --exec npx ts-node ./src/app.ts"
+    "dev": "nodemon --watch ./src --ext ts --exec npx ts-node ./src/app.ts",
+    "deploy": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && npm run copy-files",
+    "build": "npm install --production=false && npm run deploy",
+    "build:watch": "yarn clean && tsc && yarn copy-files && (concurrently \"tsc -w\" \"tsc-alias -w\")"
   },
   "author": "",
   "license": "ISC",

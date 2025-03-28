@@ -52,15 +52,19 @@ const splitter = new text_splitter_1.RecursiveCharacterTextSplitter({
 });
 const createCollection = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (similarityMetric = "dot_product") {
     try {
+        // Ensure ASTRA_DB_COLLECTION is defined
         if (!ASTRA_DB_COLLECTION) {
             throw new Error("ASTRA_DB_COLLECTION is undefined. Please provide a valid collection name.");
         }
+        // Fetch the list of existing collections
         const collections = yield db.listCollections();
+        // Check if the collection exists by comparing collection names
         const collectionExists = collections.some((col) => col.name === ASTRA_DB_COLLECTION);
         if (collectionExists) {
             console.log(`Collection '${ASTRA_DB_COLLECTION}' already exists. Skipping creation.`);
             return;
         }
+        // Create the collection if it doesn't exist
         const res = yield db.createCollection(ASTRA_DB_COLLECTION, {
             vector: {
                 dimension: 1536,
@@ -150,8 +154,8 @@ createCollection().then(() => loadSampleData()).then(() => {
     console.error(error);
 });
 // Middleware
-app.use(body_parser_1.default.json());
-app.use(body_parser_1.default.urlencoded({ extended: true }));
+app.use(body_parser_1.default.json()); // Parse JSON bodies
+app.use(body_parser_1.default.urlencoded({ extended: true })); // Parse URL-encoded bodies
 // Routes
 app.use((0, cors_1.default)());
 app.use('/', role_route_1.default);
