@@ -6,6 +6,8 @@
     "clean": "rimraf dist",
     "copy-files": "copyfiles -u 1 ./src/**/*.json ./dist",
     "start": "node --require dotenv/config ./dist/app.js",
+    "build": "npm install --production=false && npm run deploy",
+    "deploy": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && npm run copy-files",
     "build:watch": "yarn clean && tsc && yarn copy-files && (concurrently \"tsc -w\" \"tsc-alias -w\")",
     "dev": "cross-env NODE_ENV=development nodemon --require dotenv/config ./src/app.ts"
   },
@@ -44,6 +46,7 @@
     "nodemon": "^3.1.9",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.11",
     "typescript": "^5.8.2"
   }
 }

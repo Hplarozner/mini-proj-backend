@@ -122,7 +122,13 @@ const scrapePage = (url) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const loader = new puppeteer_1.PuppeteerWebBaseLoader(url, {
         launchOptions: {
-            headless: true
+            headless: true,
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+            ],
         },
         gotoOptions: {
             waitUntil: "domcontentloaded"
