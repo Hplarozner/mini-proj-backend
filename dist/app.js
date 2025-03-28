@@ -30,7 +30,7 @@ const puppeteer_1 = require("@langchain/community/document_loaders/web/puppeteer
 const openai_1 = require("openai");
 const text_splitter_1 = require("langchain/text_splitter");
 dotenv_1.default.config();
-const { ASTRA_DB_NAMESPACE, ASTRA_DB_COLLECTION, ASTRA_DB_API_ENDPOINT, ASTRA_DB_APPLICATION_TOKEN, OPENAI_API_KEY, AI_KEY } = process.env;
+const { ASTRA_DB_NAMESPACE, ASTRA_DB_COLLECTION, ASTRA_DB_API_ENDPOINT, ASTRA_DB_APPLICATION_TOKEN, AI_KEY } = process.env;
 const openai = new openai_1.OpenAI({ apiKey: AI_KEY });
 const sctc_url = [
     "https://southernconvergence.com/",
