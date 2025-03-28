@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "clean": "rimraf dist",
+    "copy-files": "copyfiles -u 1 ./src/**/*.json ./dist",
     "start": "tsc && node ./dist/app.js",
-    "dev": "nodemon --watch ./src --ext ts --exec npx ts-node ./src/app.ts"
+    "build:watch": "yarn clean && tsc && yarn copy-files && (concurrently \"tsc -w\" \"tsc-alias -w\")",
+    "dev": "cross-env NODE_ENV=development nodemon --require dotenv/config ./src/app.ts"
   },
   "author": "",
   "license": "ISC",
@@ -32,8 +35,11 @@
     "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.13",
+    "concurrently": "^9.1.2",
+    "copyfiles": "^2.4.1",
     "eslint": "^9.23.0",
     "nodemon": "^3.1.9",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   }

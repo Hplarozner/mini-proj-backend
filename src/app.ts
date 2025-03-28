@@ -5,23 +5,24 @@ import roleRoute from './routes/role.route';
 import cors from "cors"
 import dotenv from 'dotenv'
 
-dotenv.config();
-
 import {DataAPIClient} from "@datastax/astra-db-ts"
 import { PuppeteerWebBaseLoader } from "@langchain/community/document_loaders/web/puppeteer"
 import { OpenAI  } from 'openai'
 import {RecursiveCharacterTextSplitter} from "langchain/text_splitter"
 
 type SimilarityMetric = "dot_product" | "cosine" | "euclidean"
+
+dotenv.config();
 const { 
   ASTRA_DB_NAMESPACE,
   ASTRA_DB_COLLECTION,
   ASTRA_DB_API_ENDPOINT,
   ASTRA_DB_APPLICATION_TOKEN,
-  OPENAI_API_KEY
+  OPENAI_API_KEY,
+  AI_KEY
 } = process.env
 
-const openai = new OpenAI({apiKey: OPENAI_API_KEY})
+const openai = new OpenAI({apiKey: AI_KEY})
 
 const sctc_url = [
   "https://southernconvergence.com/",
@@ -126,6 +127,7 @@ createCollection().then(() => loadSampleData()).then(() => {
 }).catch((error) => {
   console.error(error);
 });
+
 // Middleware
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -217,6 +219,4 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
-
-    
 });

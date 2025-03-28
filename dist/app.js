@@ -25,13 +25,13 @@ const db_connection_1 = __importDefault(require("./db/db-connection"));
 const role_route_1 = __importDefault(require("./routes/role.route"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
 const astra_db_ts_1 = require("@datastax/astra-db-ts");
 const puppeteer_1 = require("@langchain/community/document_loaders/web/puppeteer");
 const openai_1 = require("openai");
 const text_splitter_1 = require("langchain/text_splitter");
-const { ASTRA_DB_NAMESPACE, ASTRA_DB_COLLECTION, ASTRA_DB_API_ENDPOINT, ASTRA_DB_APPLICATION_TOKEN, OPENAI_API_KEY } = process.env;
-const openai = new openai_1.OpenAI({ apiKey: OPENAI_API_KEY });
+dotenv_1.default.config();
+const { ASTRA_DB_NAMESPACE, ASTRA_DB_COLLECTION, ASTRA_DB_API_ENDPOINT, ASTRA_DB_APPLICATION_TOKEN, OPENAI_API_KEY, AI_KEY } = process.env;
+const openai = new openai_1.OpenAI({ apiKey: AI_KEY });
 const sctc_url = [
     "https://southernconvergence.com/",
     "https://southernconvergence.com/about",
@@ -98,7 +98,7 @@ const loadSampleData = () => __awaiter(void 0, void 0, void 0, function* () {
                         $vector: vector,
                         text: chunk
                     });
-                    console.log(res);
+                    return res;
                 }
             }
             catch (e_2_1) { e_2 = { error: e_2_1 }; }
