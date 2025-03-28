@@ -33,6 +33,7 @@
     "morgan": "^1.10.0",
     "openai": "^4.89.0",
     "puppeteer": "^24.4.0",
+    "readable-stream": "^4.7.0",
     "whatwg-url": "^14.2.0"
   },
   "devDependencies": {
